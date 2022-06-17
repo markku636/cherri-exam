@@ -12,8 +12,7 @@
         target="_blank"
         text
       >
-        <div class="user-img m-r-8">
-          
+        <div class="user-img m-r-8">          
         </div>
         <span class="f-24 f-bold">{{ userInfo.name }}</span>
       </v-btn>
@@ -27,7 +26,10 @@
       </v-list-item>
     </v-navigation-drawer>
 
-    <v-main> </v-main>
+    <v-main> 
+        <router-view></router-view>
+123
+    </v-main>
   </v-app>
 </template>
 
@@ -36,7 +38,6 @@ import FriendList from "@/components/FriendList";
 
 export default {
   name: "App",
-
   components: { FriendList },
 
   data: () => ({
