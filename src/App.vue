@@ -1,10 +1,7 @@
 <template>
   <v-app>
     <TopBar />
-
-          <FriendList />
-    
-
+    <FriendList />
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -17,7 +14,6 @@ import TopBar from "@/components/TopBar";
 export default {
   name: "App",
   components: { FriendList, TopBar },
- 
 };
 </script>
 
@@ -36,9 +32,7 @@ export default {
   }
 }
 
-.v-list-item {
-  padding: 0 0 !important;
-}
+
 .lang-btn {
   font-size: 20px;
 

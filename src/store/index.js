@@ -17,7 +17,7 @@ const modules = modulesFiles.keys().reduce((modules, modulePath) => {
 
 export default new Vuex.Store({
   state: {
-    showDraw: false,
+    showDraw: true,
   },
   mutations: {
     ["SET_LANG"](state, payload) {

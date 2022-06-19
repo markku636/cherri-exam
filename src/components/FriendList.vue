@@ -1,6 +1,10 @@
 <template>
-  <v-navigation-drawer app color="white--text" v-model="showDraw">
-    {{showDraw}}
+  <v-navigation-drawer
+    app
+    color="white--text"
+    class="nav-drawer"
+    v-model="showDraw"
+  >
     <v-list-item>
       <v-list-item-content>
         <div class="friend-list">
@@ -21,7 +25,7 @@
                 {{ member.nickName }}
               </div>
               <div class="last-message p-t-4">
-                大家好，我是{{ member.nickName }}
+                大家好，我是{{ member.nickName }}~
               </div>
             </div>
           </div>
@@ -65,38 +69,44 @@ export default {
 </script>
 
 <style lang="scss">
-.friend-list {
-  display: flex;
-  flex-direction: column;
-
-  .frend-dvision {
-    border-bottom: 1px solid #67e7ca;
+.nav-drawer {
+  .v-list-item {
+    padding: 0 0 !important;
   }
 
-  .firend-title {
+  .friend-list {
     display: flex;
-    flex: 1;
-  }
+    flex-direction: column;
 
-  .friend-card {
-    display: flex;
-    border-bottom: 1px solid #67e7ca;
-
-    .head-img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1px solid #67e7ca;
+    .frend-dvision {
+      border-bottom: 1px solid #67e7ca;
     }
 
-    .member-info {
-      .name-name {
-        font-weight: bold;
-        font-size: 24px;
+    .firend-title {
+      display: flex;
+      flex: 1;
+    }
+
+    .friend-card {
+      display: flex;
+      border-bottom: 1px solid #67e7ca;
+
+      .head-img {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: 1px solid #67e7ca;
       }
 
-      .last-message {
-        font-size: 16px;
+      .member-info {
+        .name-name {
+          font-weight: bold;
+          font-size: 24px;
+        }
+
+        .last-message {
+          font-size: 16px;
+        }
       }
     }
   }

@@ -7,18 +7,20 @@
 
     <v-spacer></v-spacer>
     <span class="m-r-8">{{ $t("message") }}</span>
+    <v-app-bar-nav-icon @click="setShowDraw(showDraw)"> </v-app-bar-nav-icon>
     <v-btn
       rounded
       :outlined="lang.value != $i18n.locale"
       :color="'#FFF'"
       class="m-r-8 lang-btn"
+      :height="28"
       :class="{ active: lang.value == $i18n.locale }"
       v-for="lang in langs"
       :key="'lang-' + lang.value"
       @click="setLang(lang.value)"
       >{{ lang.name }}
     </v-btn>
-    <v-app-bar-nav-icon @click="setShowDraw(showDraw)"> </v-app-bar-nav-icon>
+    <v-divider vertical class="mx-2"></v-divider>
 
     <v-btn
       href="https://github.com/vuetifyjs/vuetify/releases/latest"
@@ -50,7 +52,7 @@ export default {
     }),
   },
   methods: {
-    setShowDraw(showDraw) {      
+    setShowDraw(showDraw) {
       this.$store.dispatch("setShowDraw", !showDraw);
     },
     setLang(lang) {
