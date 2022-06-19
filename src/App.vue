@@ -1,62 +1,32 @@
 <template>
   <v-app>
-    <v-app-bar app color="#4a90e2" dark class="chat-title-bar">
-      <div class="d-flex align-center">
-        <span class="chat-title">Cherri Chat</span>
-      </div>
+    <TopBar />
 
-      <v-spacer></v-spacer>
-      <v-app-bar-nav-icon @click="showDraw = !showDraw"> </v-app-bar-nav-icon>
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <div class="user-img m-r-8">          
-        </div>
-        <span class="f-24 f-bold">{{ userInfo.name }}</span>
-      </v-btn>
-    </v-app-bar>
-
-    <v-navigation-drawer app color="white--text" v-model="showDraw">
-      <v-list-item>
-        <v-list-item-content>
           <FriendList />
-        </v-list-item-content>
-      </v-list-item>
-    </v-navigation-drawer>
+    
 
-    <v-main> 
-        <router-view></router-view>
-123
+    <v-main>
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import FriendList from "@/components/FriendList";
-
+import TopBar from "@/components/TopBar";
 export default {
   name: "App",
-  components: { FriendList },
-
-  data: () => ({
-    userInfo: {
-      name: "潔西卡",
-      img: "",
-    },
-    showDraw: true,
-  }),
+  components: { FriendList, TopBar },
+ 
 };
 </script>
 
 <style lang="scss">
-
-.user-img{
+.user-img {
   width: 48px;
   height: 48px;
   border: 1px solid #ffffff;
-  border-radius:50%;
+  border-radius: 50%;
   background-color: #ffffff;
 }
 .chat-title-bar {
@@ -68,5 +38,12 @@ export default {
 
 .v-list-item {
   padding: 0 0 !important;
+}
+.lang-btn {
+  font-size: 20px;
+
+  &.active .v-btn__content {
+    color: #4a90e2;
+  }
 }
 </style>

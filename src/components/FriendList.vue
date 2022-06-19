@@ -1,33 +1,42 @@
 <template>
-  <div class="friend-list">
-    <div class="p-t-8 p-b-8 frend-dvision">
-      <span class="m-l-12 firend-title">
-        好友列表({{ memberList.length }})
-      </span>
-    </div>
+  <v-navigation-drawer app color="white--text" v-model="showDraw">
+    {{showDraw}}
+    <v-list-item>
+      <v-list-item-content>
+        <div class="friend-list">
+          <div class="p-t-8 p-b-8 frend-dvision">
+            <span class="m-l-12 firend-title">
+              好友列表({{ memberList.length }})
+            </span>
+          </div>
 
-    <div
-      class="friend-card p-t-8 p-b-8 p-l-12 p-r-12"
-      v-for="member in memberList"
-      :key="member.id"
-    >
-      <div class="head-img" />
-      <div class="member-info m-l-12">
-        <div class="name-name">
-          {{ member.nickName }}
+          <div
+            class="friend-card p-t-8 p-b-8 p-l-12 p-r-12"
+            v-for="member in memberList"
+            :key="member.id"
+          >
+            <div class="head-img" />
+            <div class="member-info m-l-12">
+              <div class="name-name">
+                {{ member.nickName }}
+              </div>
+              <div class="last-message p-t-4">
+                大家好，我是{{ member.nickName }}
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="last-message p-t-4">大家好，我是{{ member.nickName }}</div>
-      </div>
-    </div>
-  </div>
+      </v-list-item-content>
+    </v-list-item>
+  </v-navigation-drawer>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   props: {
     memberList: {
       type: Array,
-
       required: true,
       default: () => {
         return [
@@ -46,6 +55,11 @@ export default {
         ];
       },
     },
+  },
+  computed: {
+    ...mapState({
+      showDraw: (state) => state.showDraw,
+    }),
   },
 };
 </script>

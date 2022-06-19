@@ -7,9 +7,16 @@ module.exports = defineConfig({
     'style-resources-loader': {
       preProcessor: 'scss',
       patterns: [
-        // 僅引入變數類型的 scss
-        './src/assets/style/variable.scss',
+        './src/assets/style/variable.scss'
       ]
+    },
+    i18n: {
+      locale: 'tw',
+      fallbackLocale: 'tw',
+      localeDir: 'langs',
+      enableInSFC: true,
+      includeLocales: false,
+      enableBridge: true
     }
   }
 })
