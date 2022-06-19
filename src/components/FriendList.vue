@@ -8,24 +8,24 @@
     <v-list-item>
       <v-list-item-content>
         <div class="friend-list">
-          <div class="p-t-8 p-b-8 frend-dvision">
+          <div class="p-t-8 p-b-16 frend-dvision">
             <span class="m-l-12 firend-title">
               好友列表({{ memberList.length }})
             </span>
           </div>
 
           <div
-            class="friend-card p-t-8 p-b-8 p-l-12 p-r-12"
+            class="friend-card p-t-12 p-b-12 p-l-12 p-r-12"
             v-for="member in memberList"
             :key="member.id"
             @click="clickNickName(member)"
           >
             <div class="head-img" />
             <div class="member-info m-l-12">
-              <div class="name-name" >
+              <div class="name-name">
                 {{ member.nickName }}
               </div>
-              <div class="last-message p-t-4">
+              <div class="last-message p-t-8">
                 大家好，我是{{ member.nickName }}~
               </div>
             </div>
@@ -51,10 +51,12 @@ export default {
     }),
   },
   methods: {
-    clickNickName(member) {            
-      this.$store.dispatch("setToMember", member);
+    clickNickName(member) {
+      this.$store.dispatch("chat/setToMember", member);
       let hobby = loginInfo.likes.find((x) => x.hobby == member.hobby);
       alert(hobby.value);
+
+      this.$router.push({ path: "/to-chat" });
     },
   },
 };
@@ -77,6 +79,7 @@ export default {
     .firend-title {
       display: flex;
       flex: 1;
+      align-items: center;
     }
 
     .friend-card {

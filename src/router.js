@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-
 // 捕获push replace中的错误
 // 当然在replace中的错误也是可以相同的进行捕获
 // const originalPush = VueRouter.prototype.push
@@ -23,14 +22,16 @@ Vue.use(VueRouter);
 export const mainRoutes = [
   {
     path: "/",
-    name: "StartChat",       
-    component: () => import('@/pages/start-chat'), // lazy load 
+    name: "StartChat",
+    component: () => import("@/pages/start-chat"), // lazy load
     meta: {},
-    children: [
-    
-    ],
   },
-  
+  {
+    path: "/to-chat",
+    name: "ToChat",
+    component: () => import("@/pages/to-chat"), 
+    meta: {},
+  },
 ];
 
 const router = new VueRouter({
