@@ -18,10 +18,11 @@
             class="friend-card p-t-8 p-b-8 p-l-12 p-r-12"
             v-for="member in memberList"
             :key="member.id"
+            @click="clickNickName(member)"
           >
             <div class="head-img" />
             <div class="member-info m-l-12">
-              <div class="name-name">
+              <div class="name-name" >
                 {{ member.nickName }}
               </div>
               <div class="last-message p-t-4">
@@ -37,33 +38,24 @@
 
 <script>
 import { mapState } from "vuex";
+import { memberList, loginInfo } from "@/assets/mock/member.js";
+
 export default {
-  props: {
-    memberList: {
-      type: Array,
-      required: true,
-      default: () => {
-        return [
-          {
-            id: 1,
-            nickName: "保羅",
-          },
-          {
-            id: 2,
-            nickName: "傑克",
-          },
-          {
-            id: 3,
-            nickName: "傑森",
-          },
-        ];
-      },
-    },
+  data: () => {
+    return { memberList: memberList };
   },
+  props: {},
   computed: {
     ...mapState({
       showDraw: (state) => state.showDraw,
     }),
+  },
+  methods: {
+    clickNickName(member) {            
+      this.$store.dispatch("setToMember", member);
+      let hobby = loginInfo.likes.find((x) => x.hobby == member.hobby);
+      alert(hobby.value);
+    },
   },
 };
 </script>
