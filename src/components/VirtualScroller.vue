@@ -10,7 +10,9 @@
   >
     <div
       class="virtual-scroll-list-phantom"
-      :style="{ 'min-height': minListHeight + (enableScrollUp ? 40 : 0)+ 'px' }"
+      :style="{
+        'min-height': minListHeight + (enableScrollUp ? 40 : 0) + 'px',
+      }"
     />
     <div
       ref="actualContentRef"
@@ -19,10 +21,8 @@
     >
       <div v-show="isShow.isRefresh" ref="refresh" class="refresh">
         <div class="flex justify-center align-center">
-          <span class="circle-rotate " />
-          <span>
-            重新整理
-          </span>
+          <span class="circle-rotate" />
+          <span> 重新整理 </span>
         </div>
       </div>
       <slot
@@ -36,10 +36,8 @@
       />
       <div v-show="isShow.isLoading" class="load m-t-4">
         <div class="flex justify-center align-center">
-          <span class="circle-rotate " />
-          <span>
-            加载中
-          </span>
+          <span class="circle-rotate" />
+          <span> 加载中 </span>
         </div>
       </div>
       <span v-if="!isChatMode" class="finished-text">
@@ -50,65 +48,65 @@
 </template>
 
 <script>
-import { scrollElementToBottom, debounce } from '@/utils'
+import { scrollElementToBottom, debounce } from "@/utils";
 
 export default {
-  name: 'VirtualList',
+  name: "VirtualList",
   props: {
     // 所有列表数据
     list: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     // 每项预设的高度
     itemDefaultHeight: {
       type: Number,
-      default: 200
+      default: 200,
     },
     // 唯一值
     uniKey: {
       type: String,
-      default: function() {
-        return 'seq'
+      default: function () {
+        return "seq";
       },
-      required: false
+      required: false,
     },
     // 可视范围外多渲染几笔
     bufferSize: {
       type: Number,
-      default: 0
+      default: 0,
     },
     isChatMode: {
       type: Boolean,
       required: false,
-      default: function() {
-        return false
-      }
+      default: function () {
+        return false;
+      },
     },
     enableScrollDown: {
       // 开启上拉功能  refresh
       type: Boolean,
       required: false,
-      default: function() {
-        return false
-      }
+      default: function () {
+        return false;
+      },
     },
     enableScrollUp: {
       // 开启下拉功能 loading
       type: Boolean,
       required: false,
-      default: function() {
-        return false
-      }
+      default: function () {
+        return false;
+      },
     },
     autoLoadMore: {
       // 自动捲到最底就刷新 / 捲到定点，在上拉才刷新
       type: Boolean,
       required: false,
-      default: function() {
-        return true
-      }
-    }
+      default: function () {
+        return true;
+      },
+    },
   },
   data() {
     return {
@@ -134,105 +132,104 @@ export default {
 
       firstRender: false,
 
-      refreshLoginStatus: 'normal', // 组件当前状态：正常浏览模式normal，下拉刷新模式refresh，上拉加载模式loading
+      refreshLoginStatus: "normal", // 组件当前状态：正常浏览模式normal，下拉刷新模式refresh，上拉加载模式loading
       isShow: {
         // 加载动划控制开关
         isRefresh: false,
-        isLoading: false
+        isLoading: false,
       },
       startPos: {
         // 手指初始按压位置
         pageY: 0,
-        pageX: 0
+        pageX: 0,
       },
       dis: {
         // 手移动距离
         pageY: 0,
-        pageX: 0
+        pageX: 0,
       },
       last: {
         pageY: 0,
-        pageX: 0
-      }
-
-    }
+        pageX: 0,
+      },
+    };
   },
   computed: {
     // 预期可视范围可显示的列表数
     visibleCount() {
-      return Math.ceil(this.screenHeight / this.itemDefaultHeight)
+      return Math.ceil(this.screenHeight / this.itemDefaultHeight);
     },
     // 偏移量对应的style
     getTransform() {
-      const currentCachedPositions = this.cachedPositions[this.start - 1]
+      const currentCachedPositions = this.cachedPositions[this.start - 1];
 
       return `translate3d(0,${
         this.start >= 0 && currentCachedPositions
           ? currentCachedPositions.bottom
           : 0
-      }px,0)`
+      }px,0)`;
     },
     // 获取可视范围的资料笔数
     visibleData() {
       if (this.cachedPositions.length === 0) {
-        return []
+        return [];
       }
 
-      return this.list.slice(this.start, this.end + 1)
-    }
+      return this.list.slice(this.start, this.end + 1);
+    },
   },
   watch: {
     list: {
       handler(val) {
         if (val) {
-          this.init()
+          this.init();
         }
 
-        this.isLoadMoreEnd = false
+        this.isLoadMoreEnd = false;
       },
       immediate: false,
-      deep: true
-    }
+      deep: true,
+    },
   },
   mounted() {
-    this.init()
+    this.init();
   },
   // activated生命钩子在keep-alive被激活时调用
   activated() {
-  // 如果曾滚动过,则还原位置
+    // 如果曾滚动过,则还原位置
     if (this.lastScrollTop) {
-      const page = this.$refs.scroller
-      page.scrollTop = this.lastScrollTop
+      const page = this.$refs.scroller;
+      page.scrollTop = this.lastScrollTop;
     }
   },
 
   updated() {
     // 当每一次 component 更新时重新计算一下，目前渲染出来的项目高度，放进 cache 计算
-    const that = this
+    const that = this;
 
     if (that.$refs.actualContentRef.childElementCount > 0) {
-      const childNodes = that.$refs.actualContentRef.childNodes
+      const childNodes = that.$refs.actualContentRef.childNodes;
 
-      that.hasLastNode = false
+      that.hasLastNode = false;
 
       childNodes.forEach((node) => {
-        if (!node || !node.id || node.id.indexOf('-') === -1) {
-          return
+        if (!node || !node.id || node.id.indexOf("-") === -1) {
+          return;
         }
 
-        const elementIdArray = node.id.split('-')
+        const elementIdArray = node.id.split("-");
 
         if (elementIdArray.length === 2) {
-          const elementId = Number(elementIdArray[1])
+          const elementId = Number(elementIdArray[1]);
 
           if (elementId) {
             const currentCachedPositions = that.cachedPositions.find(
               (x) => x.id === elementId
-            )
+            );
 
             if (currentCachedPositions) {
               if (currentCachedPositions.isLast === true) {
-                that.hasLastNode = true
+                that.hasLastNode = true;
               }
             }
             // 每个 item的高度只会重算一次
@@ -241,211 +238,215 @@ export default {
               currentCachedPositions.updated &&
               currentCachedPositions.updated === true
             ) {
-              return
+              return;
             }
 
-            const rect = node.getBoundingClientRect()
-            const { height } = rect
+            const rect = node.getBoundingClientRect();
+            const { height } = rect;
 
-            const oldHeight = currentCachedPositions.height
-            const dValue = oldHeight - height
+            const oldHeight = currentCachedPositions.height;
+            const dValue = oldHeight - height;
 
             if (dValue) {
-              currentCachedPositions.bottom -= dValue
-              currentCachedPositions.top -= dValue
-              currentCachedPositions.height = height
-              currentCachedPositions.dValue = dValue
-              currentCachedPositions.updated = true
-              that.minListHeight -= dValue
+              currentCachedPositions.bottom -= dValue;
+              currentCachedPositions.top -= dValue;
+              currentCachedPositions.height = height;
+              currentCachedPositions.dValue = dValue;
+              currentCachedPositions.updated = true;
+              that.minListHeight -= dValue;
 
               for (
                 let i = currentCachedPositions.index;
                 i < that.cachedPositions.length;
                 i++
               ) {
-                const cacheItem = that.cachedPositions[i]
+                const cacheItem = that.cachedPositions[i];
 
                 if (cacheItem) {
-                  cacheItem.top -= dValue
-                  cacheItem.bottom -= dValue
+                  cacheItem.top -= dValue;
+                  cacheItem.bottom -= dValue;
                 }
               }
             }
           }
         }
-      })
+      });
 
       if (that.isChatMode) {
-        that.$nextTick(function() {
+        that.$nextTick(function () {
           if (that.firstRender === false) {
-            that.firstRender = true
-            that.$refs.scroller.scrollTop = that.$refs.scroller.scrollHeight
+            that.firstRender = true;
+            that.$refs.scroller.scrollTop = that.$refs.scroller.scrollHeight;
           } else if (that.autoScrollLoaded === false) {
-            scrollElementToBottom('virtual-list')
+            scrollElementToBottom("virtual-list");
             if (that.hasLastNode) {
-              that.autoScrollLoaded = true
+              that.autoScrollLoaded = true;
             }
           }
-        })
+        });
       }
     }
   },
 
   methods: {
     init() {
-      this.autoScrollLoaded = false
-      this.initCachedPositions()
-      this.initPosition()
-      this.screenHeight = this.$el.clientHeight || this.$el.parentElement.clientHeight
-      this.scrollEvent()
+      this.autoScrollLoaded = false;
+      this.initCachedPositions();
+      this.initPosition();
+      this.screenHeight =
+        this.$el.clientHeight || this.$el.parentElement.clientHeight;
+      this.scrollEvent();
 
       // 给 list 预设的高度
-      this.minListHeight = this.list.length * this.itemDefaultHeight
+      this.minListHeight = this.list.length * this.itemDefaultHeight;
     },
     touchstartHandle(e) {
       // 记录起始位置 和 组件距离window顶部的高度
-      this.startPos.pageY = e.touches[0].pageY
-      this.startPos.pageX = e.touches[0].pageX
+      this.startPos.pageY = e.touches[0].pageY;
+      this.startPos.pageX = e.touches[0].pageX;
       // 内容页在可视视窗最顶端或者在指定的位置（父级元素的顶部）
     },
     touchmoveHandle(e) {
-      const disY = e.touches[0].pageY - this.startPos.pageY
-      const disX = e.touches[0].pageX - this.startPos.pageX
+      const disY = e.touches[0].pageY - this.startPos.pageY;
+      const disX = e.touches[0].pageX - this.startPos.pageX;
       // for android 預設下拉刷新的問題
       if (this.isAndroid) {
-        this.preventAndriodRefreshEevnt(e)
+        this.preventAndriodRefreshEevnt(e);
       }
 
-      this.last.pageY = e.changedTouches[0].pageY
-      this.last.pageX = e.changedTouches[0].pageX
+      this.last.pageY = e.changedTouches[0].pageY;
+      this.last.pageX = e.changedTouches[0].pageX;
 
       if (disX > 100 && !this.isScrolling) {
-        this.dis.pageX = disX
-        this.$emit('scrollRight')
-        this.refreshLoginStatus = 'right'
+        this.dis.pageX = disX;
+        this.$emit("scrollRight");
+        this.refreshLoginStatus = "right";
       } else if (disX < -100 && !this.isScrolling) {
-        this.$emit('scrollLeft')
-        this.refreshLoginStatus = 'left'
+        this.$emit("scrollLeft");
+        this.refreshLoginStatus = "left";
       } else {
         if (this.$refs.scroller.scrollTop <= 0 && disY > 100) {
-          this.dis.pageY = disY
-          this.refreshLoginStatus = 'refresh'
-          this.refreshMove(disY, e)
+          this.dis.pageY = disY;
+          this.refreshLoginStatus = "refresh";
+          this.refreshMove(disY, e);
         } else if (disY < 100) {
           /* //触发上拉加载 */
-          if (this.isShow.isLoading) return
-          this.refreshLoginStatus = 'loading'
-          this.loadingMove(disY)
+          if (this.isShow.isLoading) return;
+          this.refreshLoginStatus = "loading";
+          this.loadingMove(disY);
         }
       }
     },
 
     preventAndriodRefreshEevnt(e) {
       // 阻止 android 原生事件
-      var direction = e.changedTouches[0].pageY > this.last.pageY ? 1 : -1
+      var direction = e.changedTouches[0].pageY > this.last.pageY ? 1 : -1;
 
-      const scrollTop = this.$refs.scroller.scrollTop
+      const scrollTop = this.$refs.scroller.scrollTop;
 
       if (direction > 0 && scrollTop <= 0) {
-        e.preventDefault()
+        e.preventDefault();
       }
     },
     // eslint-disable-next-line no-unused-vars
     loadingMove(dis) {
       // 计算内容页底部距离可视视窗顶部的距离
       if (this.enableScrollUp && !this.autoLoadMore) {
-        const disToTop = this.$refs.actualContentRef.getBoundingClientRect()
-          .bottom
+        const disToTop =
+          this.$refs.actualContentRef.getBoundingClientRect().bottom;
 
         // 计算可视视窗的高度
-        const clientHeight = document.documentElement.clientHeight
+        const clientHeight = document.documentElement.clientHeight;
         if (disToTop <= clientHeight) {
-          if (this.refreshLoginStatus === 'loading' && this.dis.pageY < 0) {
-            this.isShow.isLoading = true
+          if (this.refreshLoginStatus === "loading" && this.dis.pageY < 0) {
+            this.isShow.isLoading = true;
           }
         }
       }
     },
     refreshMove(dis, e) {
       if (this.enableScrollDown) {
-        if (this.isShow.isRefresh) return
-        if (this.refreshLoginStatus === 'refresh' && this.dis.pageY > 0) {
+        if (this.isShow.isRefresh) return;
+        if (this.refreshLoginStatus === "refresh" && this.dis.pageY > 0) {
           // 下拉刷新成立条件
 
-          this.isShow.isRefresh = true
+          this.isShow.isRefresh = true;
           // 下拉到一定距离后，内容页不随touchmove移动
           this.$refs.actualContentRef.style.transform = `translateY(${
             dis < 8 ? dis : 8
-          }px)`
+          }px)`;
 
           // for android 預設下拉刷新的問題
           if (this.isAndroid) {
-            e.preventDefault()
+            e.preventDefault();
           }
         }
       }
     },
 
     touchendHandle(e) {
-      if (this.refreshLoginStatus === 'left' || this.refreshLoginStatus === 'right') {
-        this.isShow.isRefresh = false
-        this.isShow.isLoading = false
+      if (
+        this.refreshLoginStatus === "left" ||
+        this.refreshLoginStatus === "right"
+      ) {
+        this.isShow.isRefresh = false;
+        this.isShow.isLoading = false;
       }
 
-      this.refreshLoginStatus === 'refresh' && this.refreshToucnend(e)
-      this.refreshLoginStatus === 'loading' && this.loadingTouchend(e)
+      this.refreshLoginStatus === "refresh" && this.refreshToucnend(e);
+      this.refreshLoginStatus === "loading" && this.loadingTouchend(e);
     },
     // eslint-disable-next-line no-unused-vars
     refreshToucnend(e) {
       // 加上限定条件，防止不在刷新状态，后面的代码执行
-      if (!this.isShow.isRefresh) return
+      if (!this.isShow.isRefresh) return;
       // 必须下拉一定距离，才进行异步加载数据
-      this.dis.pageY > 10 && (this.$emit('scrollDown'))
+      this.dis.pageY > 10 && this.$emit("scrollDown");
 
       // 松手后加载动划消失，并且内容页回到原位置
-      this.isShow.isRefresh = false
-      this.$refs.actualContentRef.style.transform = `translateY(0px)`
-      this.refreshLoginStatus = 'normal'
+      this.isShow.isRefresh = false;
+      this.$refs.actualContentRef.style.transform = `translateY(0px)`;
+      this.refreshLoginStatus = "normal";
     },
     // eslint-disable-next-line no-unused-vars
     loadingTouchend(e) {
       // 加上限定条件，防止不在刷新状态，后面的代码执行
-      if (!this.isShow.isLoading) return
+      if (!this.isShow.isLoading) return;
 
       if (this.isLoadMoreEnd === false) {
-        this.$emit('scrollUp')
+        this.$emit("scrollUp");
 
-        this.isLoadMoreEnd = true
+        this.isLoadMoreEnd = true;
       }
-      this.isShow.isLoading = false
-      this.refreshLoginStatus = 'normal'
+      this.isShow.isLoading = false;
+      this.refreshLoginStatus = "normal";
     },
 
     getCache(uniId) {
-      const cache = this.cachedPositions.find(x => x.id === uniId)
-      return cache
+      const cache = this.cachedPositions.find((x) => x.id === uniId);
+      return cache;
     },
 
     initPosition() {
       if (this.isChatMode) {
-        this.end = this.list.length
+        this.end = this.list.length;
 
-        var range = this.visibleCount + this.bufferSize
+        var range = this.visibleCount + this.bufferSize;
 
         if (this.end - range < 0) {
-          this.start = 0
+          this.start = 0;
         } else {
-          this.start = this.end - range
+          this.start = this.end - range;
         }
       } else {
-        this.start = 0
-        this.end = this.start + this.visibleCount + this.bufferSize
+        this.start = 0;
+        this.end = this.start + this.visibleCount + this.bufferSize;
       }
     },
     // 依照预设每一笔资料都给计算 bottom 及给预设高度
     initCachedPositions() {
-      const { itemDefaultHeight } = this
-      this.cachedPositions = []
+      const { itemDefaultHeight } = this;
+      this.cachedPositions = [];
       for (let i = 0; i < this.list.length; ++i) {
         this.cachedPositions[i] = {
           id: this.list[i][this.uniKey],
@@ -454,67 +455,73 @@ export default {
           top: i * itemDefaultHeight,
           bottom: (i + 1) * itemDefaultHeight,
           dValue: 0,
-          isLast: i + 1 === this.list.length
-
-        }
+          isLast: i + 1 === this.list.length,
+        };
       }
     },
     scrollEvent(e) {
       // 当前滚动位置
-      const scrollTop = this.$refs.scroller.scrollTop
+      const scrollTop = this.$refs.scroller.scrollTop;
 
       // 绑定事件,滚动时,储存位置到this.scrollTop
-      this.lastScrollTop = scrollTop
+      this.lastScrollTop = scrollTop;
 
       // 處理滑動不可以切換tab
-      this.isScrolling = true
-      var scroll
-      clearTimeout(scroll)
+      this.isScrolling = true;
+      var scroll;
+      clearTimeout(scroll);
       scroll = setTimeout(() => {
-        this.isScrolling = false
-      }, 100)
+        this.isScrolling = false;
+      }, 100);
 
-      let index = 0
+      let index = 0;
       // 此时的开始索引
       const currentCachePostion = this.cachedPositions.filter(
         (x) => scrollTop < x.bottom
-      )[0]
+      )[0];
 
       if (currentCachePostion) {
-        index = currentCachePostion.index
+        index = currentCachePostion.index;
       }
 
       if (index === 0) {
-        this.start = 0
-        this.end = index + this.visibleCount + this.bufferSize
+        this.start = 0;
+        this.end = index + this.visibleCount + this.bufferSize;
       }
-      
+
       // 此时的结束索引
-      this.start = index - this.bufferSize
-      this.end = index + this.visibleCount + this.bufferSize
+      this.start = index - this.bufferSize;
+      this.end = index + this.visibleCount + this.bufferSize;
 
       if (this.list.length > 0 && this.end >= this.list.length) {
         // 自动加载
         if (this.enableScrollUp && this.autoLoadMore) {
-          this.isShow.isLoading = true
-          this.loadingTouchend(e)
+          this.isShow.isLoading = true;
+          this.loadingTouchend(e);
         }
 
-        this.end = Math.max(this.list.length, this.visibleCount)
-        this.start = Math.min(this.end - this.visibleCount - this.bufferSize, 0)
+        this.end = Math.max(this.list.length, this.visibleCount);
+        this.start = Math.min(
+          this.end - this.visibleCount - this.bufferSize,
+          0
+        );
       }
 
-      if (this.start < 0) this.start = 0 // 起始筆
+      if (this.start < 0) this.start = 0; // 起始筆
     },
     debounceScroll(e) {
-      debounce(() => { this.scrollEvent(e) }, 16.6) // 60Hz
-    }
-  }
-}
+      debounce(() => {
+        this.scrollEvent(e);
+      }, 16.6); // 60Hz
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
 .virtual-scroll-list-container {
+  z-index: 1;
+
   position: relative;
   overflow: auto;
   height: 100%;
@@ -523,7 +530,7 @@ export default {
 }
 
 .virtual-scroll-list-container::-webkit-scrollbar {
-  width: 5px;               /* width of the entire scrollbar */
+  width: 5px; /* width of the entire scrollbar */
 }
 
 .virtual-scroll-list-container::-webkit-scrollbar-track {
@@ -531,8 +538,8 @@ export default {
 }
 
 .virtual-scroll-list-container::-webkit-scrollbar-thumb {
-  background-color: #7B7C96;    /* color of the scroll thumb */
-  border-radius: 10px;       /* roundness of the scroll thumb */  
+  background-color: #7b7c96; /* color of the scroll thumb */
+  border-radius: 10px; /* roundness of the scroll thumb */
 }
 
 // .virtual-scroll-list-container::-webkit-scrollbar {
@@ -570,7 +577,7 @@ export default {
 
 .circle-rotate {
   position: relative;
-  border: 10px solid #CCC;
+  border: 10px solid #ccc;
   border-right-color: transparent;
   border-radius: 50%;
   width: 20px;
@@ -593,11 +600,10 @@ export default {
   padding: 24px 0 32px 0;
   font-size: 22px;
   text-align: center;
-  color: #7B7C96;
+  color: #7b7c96;
 }
 
 .disable-hover {
   pointer-events: none;
 }
-
 </style>

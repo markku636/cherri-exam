@@ -3,7 +3,7 @@
     app
     color="white--text"
     class="nav-drawer"
-    v-model="showDraw"
+    :value="showDraw"
   >
     <v-list-item>
       <v-list-item-content>

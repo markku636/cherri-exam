@@ -5,26 +5,44 @@
       v-show="Object.keys(toMember).length > 0"
     >
       <div class="to-member p-l-20 p-t-12 p-b-12">
-        <img class="to-member-head-img" />
+        <img class="to-member-head-img w-44 h-44" />
         <div class="m-l-8">{{ toMember.nickName }}</div>
       </div>
       <div class="message-filter">
-        <div class="search-botton m-r-8" :class="{ active: openSearch }">
+        <div
+          class="search-botton m-r-8"
+          :class="{ active: activeBtn === SearchButtonType.Search }"
+        >
           <img
             :src="require('@/assets/images/ic_search.png')"
-            @click="openSearch = !openSearch"
-            class="w-48 h-48"
+            @click="activeBtn = SearchButtonType.Search"
+            class="w-44 h-44"
           />
         </div>
-        <div class="search-botton m-r-20" :class="{ active: openSearch }">
-          <img src="@/assets/images/ic_note.png" class="w-48 h-48" />
-        </div>
+
+        <v-menu offset-y :position-y="10" transition="scale-transition">
+          <template v-slot:activator="{ on, attrs }">
+            <div
+              class="search-botton m-r-20"
+              :class="{ active: activeBtn === SearchButtonType.Memo }"
+              v-bind="attrs"
+              v-on="on"
+              @click="activeBtn = SearchButtonType.Memo"
+            >
+              <img src="@/assets/images/ic_note.png" class="w-48 h-48" />
+            </div>
+          </template>
+
+          <v-card>
+            <MemoList />
+          </v-card>
+        </v-menu>
       </div>
     </div>
 
     <div
       class="h-60 search-input-container p-r-20 p-l-20"
-      v-show="Object.keys(toMember).length > 0 && openSearch"
+      v-show="Object.keys(toMember).length > 0 && activeBtn === SearchButtonType.Search"
     >
       <div class="flex-1">
         <v-text-field
@@ -48,7 +66,7 @@
       <VirtualScroller
         :is-chat-mode="true"
         :list="chatList.map((x, index) => ({ ...x, seq: index }))"
-        :item-default-height="30"
+        :item-default-height="64"
         :uni-key="'seq'"
       >
         <template #default="slotScope">
@@ -84,20 +102,23 @@
 
 <script type="text/javascript">
 import Mark from "mark.js/dist/mark.es6.js";
-
+import MemoList from "./components/MemoList";
 import { mapState } from "vuex";
 import VirtualScroller from "@/components/VirtualScroller";
 import { loginInfo } from "@/assets/mock/member.js";
+import { SearchButtonType } from "@/common/enums";
+
 export default {
   name: "ToChat",
-  components: { VirtualScroller },
+  components: { VirtualScroller, MemoList },
   data: () => {
     return {
       chatList: [],
       search: "",
       message: "",
-      openSearch: true,
+      activeBtn: "",
       matchCount: 0,
+      SearchButtonType
     };
   },
   computed: {
@@ -183,6 +204,7 @@ export default {
   flex-direction: column;
   flex: 1;
   height: 100%;
+  overflow: hidden;
   .to-member-container {
     display: flex;
     box-shadow: 2px 2px 5px rgb(0 0 0 / 15%);
@@ -196,8 +218,6 @@ export default {
       font-weight: bold;
 
       .to-member-head-img {
-        width: 40px;
-        height: 40px;
         border-radius: 50%;
         border: 1px solid #67e7ca;
       }
