@@ -2,17 +2,17 @@ import { LikeType } from "@/common/enums";
 
 export const memberList = [
   {
-    id: 1,
+    memberId: 1,
     nickName: "保羅",
     like: LikeType.food,
   },
   {
-    id: 2,
+    memberId: 2,
     nickName: "傑克",
     like: LikeType.sports,
   },
   {
-    id: 3,
+    memberId: 3,
     nickName: "傑森",
     like: LikeType.animal,
   },

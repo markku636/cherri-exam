@@ -1,6 +1,9 @@
 <template>
   <div class="chat-container">
-    <div class="to-member-container h-60">
+    <div
+      class="to-member-container h-60"
+      v-if="Object.keys(toMember).length > 0"
+    >
       <div class="to-member p-l-20 p-t-12 p-b-12">
         <img class="to-member-head-img" />
         <div class="m-l-8">{{ toMember.nickName }}</div>
@@ -12,7 +15,12 @@
     </div>
 
     <div class="h-60 search-input p-r-20 p-l-20">
-      <v-text-field color="#FFF" placeholder="輸入關鍵字查詢..."></v-text-field>
+      <v-text-field
+        color="#FFF"
+        placeholder="輸入關鍵字查詢..."
+        :height="40"
+        v-model="searchKeyword"
+      ></v-text-field>
     </div>
     <div class="flex-1 m-r-8">
       <VirtualScroller
@@ -37,9 +45,14 @@
     </div>
     <div class="h-60 send-message-contrainer">
       <div class="flex flex-1 align-center p-r-20 p-l-20">
-        <v-text-field color="#FFF" placeholder="輸入訊息..."></v-text-field>
+        <v-text-field
+          color="#FFF"
+          :height="36"
+          placeholder="輸入訊息..."
+          v-model="message"
+        ></v-text-field>
       </div>
-      <div class="w-48 m-l-40 m-r-20 send-message-btn">
+      <div class="w-48 m-l-40 m-r-20 send-message-btn" @click="sendMessage">
         <img src="@/assets/images/ic_sent.png" class="w-48" />
       </div>
     </div>
@@ -54,46 +67,31 @@ export default {
   components: { VirtualScroller },
   data: () => {
     return {
-      chatList: [
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1231111" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-        { userId: 2, message: "1123121" },
-      ],
+      chatList: [],
+      searchKeyword: "",
+      message: "",
     };
   },
   computed: {
     ...mapState({
       toMember: (state) => state.chat.toMember,
     }),
+  },
+  methods: {
+    sendMessage() {
+      if (!this.toMember.memberId) {
+        alert("請先選擇交談對象");
+        return;
+      }
+
+      let newMessage = {
+        memberId: this.toMember.memberId,
+        message: this.message,
+      };
+
+      this.chatList.push(newMessage);
+      this.message = "";
+    },
   },
 };
 </script>
@@ -144,14 +142,13 @@ export default {
     display: flex;
     flex: 1;
     justify-content: flex-end;
-
     padding-left: 12px;
     font-size: 26px;
     word-break: break-all;
     box-sizing: border-box;
     background-color: "#4a90e2";
-
-    padding-bottom: 8px;
+    padding-top: 12px;
+    
 
     .message {
       line-height: 36px;
@@ -167,6 +164,11 @@ export default {
     display: flex;
     align-items: center;
     border-top: 1px solid #67e7ca;
+
+    .v-input__control {
+      flex-wrap: nowrap;
+      flex-direction: unset;
+    }
 
     .v-text-field input {
       padding: 0 !important;
