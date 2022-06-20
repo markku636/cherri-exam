@@ -5,10 +5,15 @@
         <img class="to-member-head-img" />
         <div class="m-l-8">{{ toMember.nickName }}</div>
       </div>
-      <div class="message-filter">filter</div>
+      <div class="message-filter">
+        <img src="@/assets/images/ic_close1.png" class="w-48 m-r-8" />
+        <img src="@/assets/images/ic_note.png" class="w-48 m-r-20" />
+      </div>
     </div>
 
-    <div class="h-60">search input</div>
+    <div class="h-60 search-input p-r-20 p-l-20">
+      <v-text-field color="#FFF" placeholder="輸入關鍵字查詢..."></v-text-field>
+    </div>
     <div class="flex-1 m-r-8">
       <VirtualScroller
         :is-chat-mode="true"
@@ -17,7 +22,6 @@
         :uni-key="'seq'"
       >
         <template #default="slotScope">
-          <!-- id 一定要給 -->
           <div
             :id="'chat-' + slotScope.item[slotScope.uniKey]"
             :key="slotScope.item[slotScope.uniKey]"
@@ -31,7 +35,14 @@
         </template>
       </VirtualScroller>
     </div>
-    <div class="h-60">Send Message</div>
+    <div class="h-60 send-message-contrainer">
+      <div class="flex flex-1 align-center p-r-20 p-l-20">
+        <v-text-field color="#FFF" placeholder="輸入訊息..."></v-text-field>
+      </div>
+      <div class="w-48 m-l-40 m-r-20 send-message-btn">
+        <img src="@/assets/images/ic_sent.png" class="w-48" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -95,7 +106,8 @@ export default {
   height: 100%;
   .to-member-container {
     display: flex;
-
+    box-shadow: 2px 2px 5px rgb(0 0 0 / 15%);
+    align-items: center;
     .to-member {
       display: flex;
       flex: 1;
@@ -114,7 +126,17 @@ export default {
 
     .message-filter {
       flex: 1;
+      display: flex;
       justify-content: flex-end;
+    }
+  }
+
+  .search-input {
+    display: flex;
+    box-shadow: 2px 2px 5px rgb(0 0 0 / 15%);
+    align-items: center;
+    .v-input__slot::before {
+      border-style: none !important;
     }
   }
 
@@ -128,7 +150,7 @@ export default {
     word-break: break-all;
     box-sizing: border-box;
     background-color: "#4a90e2";
-    padding-top: 8px;
+
     padding-bottom: 8px;
 
     .message {
@@ -139,6 +161,25 @@ export default {
       margin-right: 8px;
       color: #fff;
     }
+  }
+
+  .send-message-contrainer {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #67e7ca;
+
+    .v-text-field input {
+      padding: 0 !important;
+    }
+
+    .v-input__slot::before {
+      border-style: none !important;
+    }
+  }
+
+  .send-message-btn {
+    display: flex;
+    align-items: center;
   }
 }
 </style>

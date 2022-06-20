@@ -64,6 +64,7 @@ export default {
 
 <style lang="scss">
 .nav-drawer {
+  box-shadow: 10px 0 5px -5px rgb(0 0 0 / 5%);
   .v-list-item {
     padding: 0 0 !important;
   }
