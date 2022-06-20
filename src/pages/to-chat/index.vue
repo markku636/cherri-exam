@@ -114,19 +114,24 @@ export default {
       deep: true,
     },
     search: function (val) {
+      // // eslint-disable-next-line no-debugger
+      // debugger;
       if (val) {
         this.matchCount = this.chatList.filter(
           (x) => x.message.indexOf(val) > -1
         ).length;
+
+        this.heightLightMessage(val);
       }
-
-      let context = document.querySelector(".chat-row");
-
-      var instance = new Mark(context);
-      instance.mark(val);
     },
   },
   methods: {
+    heightLightMessage(text) {
+      let context = document.querySelectorAll(".chat-row");
+      var instance = new Mark(context);
+      instance.unmark();
+      instance.mark(text);
+    },
     greetingInit(toMember) {
       let hobby = loginInfo.likes.find((x) => x.like == toMember.like);
 
