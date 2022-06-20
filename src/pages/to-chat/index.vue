@@ -2,26 +2,48 @@
   <div class="chat-container">
     <div
       class="to-member-container h-60"
-      v-if="Object.keys(toMember).length > 0"
+      v-show="Object.keys(toMember).length > 0"
     >
       <div class="to-member p-l-20 p-t-12 p-b-12">
         <img class="to-member-head-img" />
         <div class="m-l-8">{{ toMember.nickName }}</div>
       </div>
       <div class="message-filter">
-        <img src="@/assets/images/ic_close1.png" class="w-48 m-r-8" />
-        <img src="@/assets/images/ic_note.png" class="w-48 m-r-20" />
+        <div class="search-botton m-r-8" :class="{ active: openSearch }">
+          <img
+            :src="require('@/assets/images/ic_search.png')"
+            @click="openSearch = !openSearch"
+            class="w-48 h-48"
+          />
+        </div>
+        <div class="search-botton m-r-20" :class="{ active: openSearch }">
+          <img src="@/assets/images/ic_note.png" class="w-48 h-48" />
+        </div>
       </div>
     </div>
 
-    <div class="h-60 search-input p-r-20 p-l-20">
-      <v-text-field
-        color="#FFF"
-        placeholder="輸入關鍵字查詢..."
-        :height="40"
-        v-model="searchKeyword"
-      ></v-text-field>
+    <div
+      class="h-60 search-input-container p-r-20 p-l-20"
+      v-show="Object.keys(toMember).length > 0 && openSearch"
+    >
+      <div class="flex-1">
+        <v-text-field
+          color="#FFF"
+          :placeholder="$t('chat.inputKeyword')"
+          :height="40"
+          v-model="search"
+        />
+      </div>
+      <div class="w-120 flex justify-end align-center">
+        <span class="m-r-12 f-20"> {{ matchCount }}則符合訊息 </span>
+        <img
+          :src="require('@/assets/images/ic_close1.png')"
+          @click="search = ''"
+          class="w-36 h-36"
+        />
+      </div>
     </div>
+
     <div class="flex-1 m-r-8">
       <VirtualScroller
         :is-chat-mode="true"
@@ -48,8 +70,9 @@
         <v-text-field
           color="#FFF"
           :height="36"
-          placeholder="輸入訊息..."
+          :placeholder="$t('chat.inputMessage')"
           v-model="message"
+          v-on:keyup.enter="sendMessage"
         ></v-text-field>
       </div>
       <div class="w-48 m-l-40 m-r-20 send-message-btn" @click="sendMessage">
@@ -60,6 +83,8 @@
 </template>
 
 <script type="text/javascript">
+import Mark from "mark.js/dist/mark.es6.js";
+
 import { mapState } from "vuex";
 import VirtualScroller from "@/components/VirtualScroller";
 import { loginInfo } from "@/assets/mock/member.js";
@@ -69,8 +94,10 @@ export default {
   data: () => {
     return {
       chatList: [],
-      searchKeyword: "",
+      search: "",
       message: "",
+      openSearch: true,
+      matchCount: 0,
     };
   },
   computed: {
@@ -82,15 +109,25 @@ export default {
     toMember: {
       handler: function (newToMember) {
         this.chatList = [];
-        this.greetingShow(newToMember);
+        this.greetingInit(newToMember);
       },
       deep: true,
     },
-  },
+    search: function (val) {
+      if (val) {
+        this.matchCount = this.chatList.filter(
+          (x) => x.message.indexOf(val) > -1
+        ).length;
+      }
 
+      let context = document.querySelector(".chat-row");
+
+      var instance = new Mark(context);
+      instance.mark(val);
+    },
+  },
   methods: {
-    greetingShow(toMember) {
-      
+    greetingInit(toMember) {
       let hobby = loginInfo.likes.find((x) => x.like == toMember.like);
 
       this.chatList.push({
@@ -102,7 +139,7 @@ export default {
         memberId: this.toMember.memberId,
         message: `你好, 我是${loginInfo.name}`,
       });
-      
+
       this.chatList.push({
         memberId: this.toMember.memberId,
         message: this.$t(`common.likeType${hobby.like}`),
@@ -114,6 +151,10 @@ export default {
       });
     },
     sendMessage() {
+      if (!this.message) {
+        return;
+      }
+
       if (!this.toMember.memberId) {
         alert("請先選擇交談對象");
         return;
@@ -164,10 +205,14 @@ export default {
     }
   }
 
-  .search-input {
+  .search-input-container {
     display: flex;
     box-shadow: 2px 2px 5px rgb(0 0 0 / 15%);
     align-items: center;
+    border-bottom: 1px solid #67e7ca;
+
+    .match-count-text {
+    }
 
     .v-input__control {
       flex-wrap: nowrap;
@@ -226,6 +271,21 @@ export default {
   .send-message-btn {
     display: flex;
     align-items: center;
+  }
+  .search-botton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.active {
+      background-color: #f4f4f4;
+      border: 1px solid #f0f0f0;
+      border-radius: 50%;
+    }
+
+    img {
+      padding: 4px;
+    }
   }
 }
 </style>

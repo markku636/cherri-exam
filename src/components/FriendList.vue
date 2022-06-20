@@ -10,7 +10,7 @@
         <div class="friend-list">
           <div class="p-t-8 p-b-16 frend-dvision">
             <span class="m-l-12 firend-title">
-              好友列表({{ memberList.length }})
+              {{ $t("chat.friendList") }}({{ memberList.length }})
             </span>
           </div>
 
@@ -56,8 +56,12 @@ export default {
 
   methods: {
     clickNickName(member) {
-      if (Object.keys(this.toMember)) var yes = confirm("切換聊天對象，會清除所有聊天記錄，你確定嗎？");
-      {
+      if (member.memberId === this.toMember.memberId) {
+        return 
+      }
+
+      if (Object.keys(this.toMember).length > 0) {
+        var yes = confirm("切換聊天對象，會清除所有聊天記錄，你確定嗎？");
         if (!yes) {
           return;
         }

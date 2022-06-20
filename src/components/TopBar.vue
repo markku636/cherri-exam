@@ -5,9 +5,7 @@
       <span class="chat-title">Cherri Chat</span>
     </div>
 
-    <v-spacer></v-spacer>
-    <span class="m-r-8">{{ $t("message") }}</span>
-    <v-app-bar-nav-icon @click="setShowDraw(showDraw)"> </v-app-bar-nav-icon>
+    <v-spacer></v-spacer>        
     <v-btn
       rounded
       :outlined="lang.value != $i18n.locale"
@@ -30,6 +28,7 @@
       <div class="user-img m-r-8"></div>
       <span class="f-24 f-bold">{{ loginInfo.name }}</span>
     </v-btn>
+    <v-app-bar-nav-icon @click="setShowDraw(showDraw)"> </v-app-bar-nav-icon>
   </v-app-bar>
 </template>
 
