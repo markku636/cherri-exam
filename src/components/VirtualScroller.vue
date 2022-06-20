@@ -488,7 +488,7 @@ export default {
         this.start = 0
         this.end = index + this.visibleCount + this.bufferSize
       }
-      // debugger
+      
       // 此时的结束索引
       this.start = index - this.bufferSize
       this.end = index + this.visibleCount + this.bufferSize

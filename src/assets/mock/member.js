@@ -4,17 +4,17 @@ export const memberList = [
   {
     memberId: 1,
     nickName: "保羅",
-    like: LikeType.food,
+    like: LikeType.Food,
   },
   {
     memberId: 2,
     nickName: "傑克",
-    like: LikeType.sports,
+    like: LikeType.Sport,
   },
   {
     memberId: 3,
     nickName: "傑森",
-    like: LikeType.animal,
+    like: LikeType.Animal,
   },
 ];
 
@@ -23,15 +23,15 @@ export const loginInfo = {
   img: "",
   likes: [
     {
-      Type: LikeType.sport,
+      like: LikeType.Sport,
       value: "游泳,跑步",
     },
     {
-      Type: LikeType.food,
+      like: LikeType.Food,
       value: "各種巧克力口味的甜點",
     },
     {
-      Type: LikeType.animal,
+      like: LikeType.Animal,
       value: "貓,狗",
     },
   ],

@@ -38,7 +38,7 @@
 
 <script>
 import { mapState } from "vuex";
-import { memberList, loginInfo } from "@/assets/mock/member.js";
+import { memberList } from "@/assets/mock/member.js";
 
 export default {
   data: () => {
@@ -50,12 +50,10 @@ export default {
       showDraw: (state) => state.showDraw,
     }),
   },
+
   methods: {
     clickNickName(member) {
       this.$store.dispatch("chat/setToMember", member);
-      let hobby = loginInfo.likes.find((x) => x.hobby == member.hobby);
-      alert(hobby.value);
-
       this.$router.push({ path: "/to-chat" });
     },
   },

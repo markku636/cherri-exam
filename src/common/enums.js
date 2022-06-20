@@ -1,5 +1,5 @@
 export const LikeType = {
-  sport: 1,
-  food: 2,
-  animal: 3,
+  Sport: 1,
+  Food: 2,
+  Animal: 3,
 };

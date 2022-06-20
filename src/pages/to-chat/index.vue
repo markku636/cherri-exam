@@ -62,6 +62,7 @@
 <script type="text/javascript">
 import { mapState } from "vuex";
 import VirtualScroller from "@/components/VirtualScroller";
+import { loginInfo } from "@/assets/mock/member.js";
 export default {
   name: "ToChat",
   components: { VirtualScroller },
@@ -77,7 +78,41 @@ export default {
       toMember: (state) => state.chat.toMember,
     }),
   },
+  watch: {
+    toMember: {
+      handler: function (newToMember) {
+        this.chatList = [];
+        this.greetingShow(newToMember);
+      },
+      deep: true,
+    },
+  },
+
   methods: {
+    greetingShow(toMember) {
+      
+      let hobby = loginInfo.likes.find((x) => x.like == toMember.like);
+
+      this.chatList.push({
+        memberId: this.toMember.memberId,
+        message: toMember.nickName,
+      });
+
+      this.chatList.push({
+        memberId: this.toMember.memberId,
+        message: `你好, 我是${loginInfo.name}`,
+      });
+      
+      this.chatList.push({
+        memberId: this.toMember.memberId,
+        message: this.$t(`common.likeType${hobby.like}`),
+      });
+
+      this.chatList.push({
+        memberId: this.toMember.memberId,
+        message: hobby.value,
+      });
+    },
     sendMessage() {
       if (!this.toMember.memberId) {
         alert("請先選擇交談對象");
@@ -133,6 +168,16 @@ export default {
     display: flex;
     box-shadow: 2px 2px 5px rgb(0 0 0 / 15%);
     align-items: center;
+
+    .v-input__control {
+      flex-wrap: nowrap;
+      flex-direction: unset;
+    }
+
+    .v-text-field input {
+      padding: 0 !important;
+    }
+
     .v-input__slot::before {
       border-style: none !important;
     }
@@ -148,7 +193,6 @@ export default {
     box-sizing: border-box;
     background-color: "#4a90e2";
     padding-top: 12px;
-    
 
     .message {
       line-height: 36px;
