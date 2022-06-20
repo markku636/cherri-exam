@@ -49,10 +49,19 @@ export default {
     ...mapState({
       showDraw: (state) => state.showDraw,
     }),
+    ...mapState({
+      toMember: (state) => state.chat.toMember,
+    }),
   },
 
   methods: {
     clickNickName(member) {
+      if (Object.keys(this.toMember)) var yes = confirm("切換聊天對象，會清除所有聊天記錄，你確定嗎？");
+      {
+        if (!yes) {
+          return;
+        }
+      }
       this.$store.dispatch("chat/setToMember", member);
       this.$router.push({ path: "/to-chat" });
     },
