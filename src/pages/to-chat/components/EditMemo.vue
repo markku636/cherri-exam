@@ -25,8 +25,7 @@ export default {
         memoId:"",
         memberId:"",
         date:"",
-        memo: "1111111111111111111",        
-
+        memo: "1111111111111111111",
       },
     };
   },

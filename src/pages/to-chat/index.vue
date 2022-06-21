@@ -20,11 +20,18 @@
           />
         </div>
 
-        <v-menu offset-y transition="scale-transition">
+        <v-menu
+          offset-y
+          transition="scale-transition"
+          v-model="memoShow"
+          :close-on-content-click="false"
+        >
           <template v-slot:activator="{ on, attrs }">
             <div
               class="search-botton m-r-20"
-              :class="{ active: activeBtn === SearchButtonType.Memo }"
+              :class="{
+                active: memoShow && activeBtn === SearchButtonType.Memo,
+              }"
               v-bind="attrs"
               v-on="on"
               @click="activeBtn = SearchButtonType.Memo"
@@ -116,12 +123,13 @@ export default {
   components: { VirtualScroller, MemoList },
   data: () => {
     return {
+      SearchButtonType,
       chatList: [],
       search: "",
       message: "",
       activeBtn: "",
       matchCount: 0,
-      SearchButtonType,
+      memoShow: false,
     };
   },
   computed: {
