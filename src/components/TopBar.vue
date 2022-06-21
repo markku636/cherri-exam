@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 <template>
   <v-app-bar app color="#4a90e2" dark class="chat-title-bar">
     <div class="d-flex align-center">

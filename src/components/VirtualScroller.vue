@@ -526,25 +526,7 @@ export default {
   overflow: auto;
   height: 100%;
   -webkit-overflow-scrolling: touch;
-  // scroll-behavior: smooth;
-
-  .virtual-scroll-list-container::-webkit-scrollbar {
-    width: 5px; /* width of the entire scrollbar */
-  }
-
-  .virtual-scroll-list-container::-webkit-scrollbar-track {
-    // background: orange;        /* color of the tracking area */
-  }
-
-  .virtual-scroll-list-container::-webkit-scrollbar-thumb {
-    background-color: #7b7c96; /* color of the scroll thumb */
-    border-radius: 10px; /* roundness of the scroll thumb */
-  }
-
-  // .virtual-scroll-list-container::-webkit-scrollbar {
-  //   display: none;
-  // }
-
+  
   .virtual-scroll-list-phantom {
     position: absolute;
     top: 0;
@@ -560,19 +542,6 @@ export default {
     left: 0;
     z-index: 998;
   }
-
-  /*
-::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background-color: darkgrey;
-}
-
-::-webkit-scrollbar-thumb {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
-} */
 
   .circle-rotate {
     position: relative;

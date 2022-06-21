@@ -149,8 +149,7 @@ export default {
       immediate: true,
     },
     search: function (val) {
-      // // eslint-disable-next-line no-debugger
-      // debugger;
+      
       if (val) {
         this.matchCount = this.chatList.filter(
           (x) => x.message.indexOf(val) > -1
