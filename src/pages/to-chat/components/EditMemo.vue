@@ -5,7 +5,7 @@
       name="input-7-4"
       label=""
       placeholder="輸入訊息..."
-      v-model="newMemo.memo"
+      v-model="memo"
       color="#4a90e2"
     ></v-textarea>
     <v-btn depressed color="#4a90e2" class="submit-btn" @click="addMemo"
@@ -21,12 +21,7 @@ export default {
   name: "EditInfo",
   data() {
     return {
-      newMemo: {
-        memoId:"",
-        memberId:"",
-        date:"",
-        memo: "1111111111111111111",
-      },
+      memo: "1111111111111111111",
     };
   },
   computed: {
@@ -38,11 +33,14 @@ export default {
   created() {},
   methods: {
     addMemo() {
-      this.newMemo.memoId = generatorUUID();
-      this.newMemo.memberId = this.toMember.memberId;
-      this.newMemo.date = new Date();
+      let newMemo = {
+        memoId: generatorUUID(),
+        memberId: this.toMember.memberId,
+        date: new Date(),
+        memo: this.memo,
+      };
 
-      this.$store.dispatch("memo/addMemo", this.newMemo);
+      this.$store.dispatch("memo/addMemo", newMemo);
     },
   },
 };
