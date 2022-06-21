@@ -32,11 +32,18 @@ export const mainRoutes = [
     component: () => import("@/pages/to-chat"), 
     meta: {},
   },
+  {
+    // 非正常路徑導回首頁
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    redirect: { path: '/' }
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   scrollBehavior: () => ({ x: 0, y: 0 }),
+  base: process.env.NODE_ENV === "production" ? "/cherri-exam/" : "/",
   routes: mainRoutes,
 });
 

@@ -1,5 +1,6 @@
 
 npm run build
+sleep 3
 
 cd dist
 git init 

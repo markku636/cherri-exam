@@ -20,7 +20,7 @@
           />
         </div>
 
-        <v-menu          
+        <v-menu
           :position-y="140"
           absolute
           offset-y
@@ -56,7 +56,7 @@
         activeBtn === SearchButtonType.Search
       "
     >
-      <div class="flex-1">
+      <div class="flex-1 m-r-8">
         <v-text-field
           color="#FFF"
           :placeholder="$t('chat.inputKeyword')"
@@ -64,13 +64,15 @@
           v-model="search"
         />
       </div>
-      <div class="w-120 flex justify-end align-center">
-        <span class="m-r-12 f-20"> {{ matchCount }}則符合訊息 </span>
-        <img
-          :src="require('@/assets/images/ic_close1.png')"
-          @click="search = ''"
-          class="w-36 h-36"
-        />
+      <div class="w-168">
+        <div class="flex justify-end align-center">
+          <span class="m-r-12 f-20"> {{ matchCount }}則符合訊息 </span>
+          <img
+            :src="require('@/assets/images/ic_close1.png')"
+            @click="search = ''"
+            class="w-36 h-36"
+          />
+        </div>
       </div>
     </div>
 
@@ -149,7 +151,6 @@ export default {
       immediate: true,
     },
     search: function (val) {
-      
       if (val) {
         this.matchCount = this.chatList.filter(
           (x) => x.message.indexOf(val) > -1
