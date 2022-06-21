@@ -1,8 +1,10 @@
-{  
-  "chat.friendList":"好友列表",
-  "chat.inputKeyword":"輸入關鍵字...",
-  "chat.inputMessage":"輸入訊息...",
-  "common.likeType1":"我喜歡吃的食物有",
-  "common.likeType2":"我喜歡做的運動為",
-  "common.likeType3":"我喜歡的動物為"
+{
+  "common.add": "新增",
+  "common.likeType1": "我喜歡吃的食物有",
+  "common.likeType2": "我喜歡做的運動為",
+  "common.likeType3": "我喜歡的動物為",
+  "chat.friendList": "好友列表",
+  "chat.inputKeyword": "輸入關鍵字...",
+  "chat.inputMessage": "輸入訊息...",
+  "chat.noRecord": "暫無記錄"
 }

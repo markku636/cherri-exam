@@ -1,8 +1,10 @@
-{ 
-  "chat.friendList":"Friend List",
-  "common.likeType1":"I like to eat food.",
-  "common.likeType2":"I like to do sport.",
-  "common.likeType3":"I like to animal.",
-  "chat.inputKeyword":"Input Keyward...",
-  "chat.inputMessage":"Input Message..."
+{
+  "common.add": "Add",
+  "common.likeType1": "I like to eat food.",
+  "common.likeType2": "I like to do sport.",
+  "common.likeType3": "I like to animal.",
+  "chat.friendList": "Friend List",
+  "chat.inputKeyword": "Input Keyward...",
+  "chat.inputMessage": "Input Message...",
+  "chat.noRecord": "No Record"
 }

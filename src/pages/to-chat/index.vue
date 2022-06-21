@@ -20,7 +20,9 @@
           />
         </div>
 
-        <v-menu
+        <v-menu          
+          :position-y="140"
+          absolute
           offset-y
           transition="scale-transition"
           v-model="memoShow"

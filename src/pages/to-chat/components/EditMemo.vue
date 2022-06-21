@@ -8,9 +8,9 @@
       v-model="memo"
       color="#4a90e2"
     ></v-textarea>
-    <v-btn depressed color="#4a90e2" class="submit-btn" @click="addMemo"
-      >新增</v-btn
-    >
+    <v-btn depressed color="#4a90e2" class="submit-btn" @click="addMemo">
+      {{ $t("common.add") }}
+    </v-btn>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
   name: "EditInfo",
   data() {
     return {
-      memo: "1111111111111111111",
+      memo: "test1234156",
     };
   },
   computed: {
