@@ -20,7 +20,7 @@
           />
         </div>
 
-        <v-menu offset-y :position-y="10" transition="scale-transition">
+        <v-menu offset-y transition="scale-transition">
           <template v-slot:activator="{ on, attrs }">
             <div
               class="search-botton m-r-20"
@@ -42,7 +42,10 @@
 
     <div
       class="h-60 search-input-container p-r-20 p-l-20"
-      v-show="Object.keys(toMember).length > 0 && activeBtn === SearchButtonType.Search"
+      v-show="
+        Object.keys(toMember).length > 0 &&
+        activeBtn === SearchButtonType.Search
+      "
     >
       <div class="flex-1">
         <v-text-field
@@ -118,7 +121,7 @@ export default {
       message: "",
       activeBtn: "",
       matchCount: 0,
-      SearchButtonType
+      SearchButtonType,
     };
   },
   computed: {
@@ -133,6 +136,7 @@ export default {
         this.greetingInit(newToMember);
       },
       deep: true,
+      immediate: true,
     },
     search: function (val) {
       // // eslint-disable-next-line no-debugger
@@ -154,6 +158,10 @@ export default {
       instance.mark(text);
     },
     greetingInit(toMember) {
+      if (Object.keys(toMember).length === 0) {
+        return;
+      }
+
       let hobby = loginInfo.likes.find((x) => x.like == toMember.like);
 
       this.chatList.push({
@@ -237,6 +245,7 @@ export default {
     border-bottom: 1px solid #67e7ca;
 
     .match-count-text {
+      color: #a3a4b1;
     }
 
     .v-input__control {

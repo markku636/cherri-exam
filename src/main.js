@@ -6,6 +6,11 @@ import "@/assets/style/utilities.scss";
 import router from "@/router";
 import i18n from "@/plugins/i18n";
 import store from "@/store";
+import filters from '@/filters'
+
+for (const name in filters) {
+  Vue.filter(name, filters[name])
+}
 
 Vue.config.productionTip = false;
 

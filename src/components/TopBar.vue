@@ -20,9 +20,7 @@
     </v-btn>
     <v-divider vertical class="mx-2"></v-divider>
 
-    <v-btn
-      href="https://github.com/vuetifyjs/vuetify/releases/latest"
-      target="_blank"
+    <v-btn      
       text
     >
       <div class="user-img m-r-8"></div>

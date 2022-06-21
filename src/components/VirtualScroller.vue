@@ -527,42 +527,41 @@ export default {
   height: 100%;
   -webkit-overflow-scrolling: touch;
   // scroll-behavior: smooth;
-}
 
-.virtual-scroll-list-container::-webkit-scrollbar {
-  width: 5px; /* width of the entire scrollbar */
-}
+  .virtual-scroll-list-container::-webkit-scrollbar {
+    width: 5px; /* width of the entire scrollbar */
+  }
 
-.virtual-scroll-list-container::-webkit-scrollbar-track {
-  // background: orange;        /* color of the tracking area */
-}
+  .virtual-scroll-list-container::-webkit-scrollbar-track {
+    // background: orange;        /* color of the tracking area */
+  }
 
-.virtual-scroll-list-container::-webkit-scrollbar-thumb {
-  background-color: #7b7c96; /* color of the scroll thumb */
-  border-radius: 10px; /* roundness of the scroll thumb */
-}
+  .virtual-scroll-list-container::-webkit-scrollbar-thumb {
+    background-color: #7b7c96; /* color of the scroll thumb */
+    border-radius: 10px; /* roundness of the scroll thumb */
+  }
 
-// .virtual-scroll-list-container::-webkit-scrollbar {
-//   display: none;
-// }
+  // .virtual-scroll-list-container::-webkit-scrollbar {
+  //   display: none;
+  // }
 
-.virtual-scroll-list-phantom {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: -1;
-}
+  .virtual-scroll-list-phantom {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;
+  }
 
-.virtual-scroll-list {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 998;
-}
+  .virtual-scroll-list {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 998;
+  }
 
-/*
+  /*
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -575,35 +574,36 @@ export default {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
 } */
 
-.circle-rotate {
-  position: relative;
-  border: 10px solid #ccc;
-  border-right-color: transparent;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: loadingAnimation 0.75s infinite;
-}
-
-@keyframes loadingAnimation {
-  0% {
-    transform: translateX(-50%) rotate(0deg);
+  .circle-rotate {
+    position: relative;
+    border: 10px solid #ccc;
+    border-right-color: transparent;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: loadingAnimation 0.75s infinite;
   }
 
-  100% {
-    transform: translateX(-50%) rotate(360deg);
+  @keyframes loadingAnimation {
+    0% {
+      transform: translateX(-50%) rotate(0deg);
+    }
+
+    100% {
+      transform: translateX(-50%) rotate(360deg);
+    }
   }
-}
 
-.finished-text {
-  display: block;
-  padding: 24px 0 32px 0;
-  font-size: 22px;
-  text-align: center;
-  color: #7b7c96;
-}
+  .finished-text {
+    display: block;
+    padding: 24px 0 32px 0;
+    font-size: 22px;
+    text-align: center;
+    color: #7b7c96;
+  }
 
-.disable-hover {
-  pointer-events: none;
+  .disable-hover {
+    pointer-events: none;
+  }
 }
 </style>

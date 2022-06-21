@@ -1,15 +1,34 @@
 const state = {
-  memoList: [],
+  memoList: [
+    {
+      memoId: "dfaadfadfad",
+      memberId: 1,
+      date: new Date(),
+      memo: "1234",
+    },
+    {
+      memoId: "dfaadfadfad1123",
+      memberId: 1,
+      date: new Date(),
+      memo: "12345",
+    },
+  ],
 };
 const mutations = {
-  ["PUSH_MEMO"](state, payload) {
-    state.toMember.push(payload);
+  ["ADD_MEMO"](state, payload) {
+    state.memoList.push(payload);
+  },
+  ["REMOVE_MEMO"](state, payload) {
+    state.memoList = state.memoList.filter((x) => x.memoId != payload);
   },
 };
 
 const actions = {
-  pushMemo({ commit }, payload) {
-    commit("PUSH_MEMO", payload);
+  addMemo({ commit }, payload) {
+    commit("ADD_MEMO", payload);
+  },
+  removeMemo({ commit }, payload) {
+    commit("REMOVE_MEMO", payload);
   },
 };
 
