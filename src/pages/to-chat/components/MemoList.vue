@@ -20,7 +20,7 @@
       </div>
     </template>
     <template v-else>
-      <div class="no-record">{{$t('chat.noRecord')}}</div>
+      <div class="no-record">{{ $t("chat.noRecord") }}</div>
     </template>
   </div>
 </template>
@@ -39,7 +39,11 @@ export default {
       toMember: (state) => state.chat.toMember,
     }),
     currentMemberList() {
-      return this.memoList.filter((x) => x.memberId == this.toMember.memberId);
+      return this.memoList
+        .filter((x) => x.memberId == this.toMember.memberId)
+        .sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        });
     },
   },
   methods: {
@@ -59,7 +63,7 @@ export default {
     border-color: #67e7ca;
   }
 
-  .no-record {    
+  .no-record {
     padding: 8px;
     margin-top: 16px;
   }
