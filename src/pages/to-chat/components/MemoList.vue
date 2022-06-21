@@ -20,7 +20,7 @@
       </div>
     </template>
     <template v-else>
-      <div class="no-record">暫無記錄</div>
+      <div class="no-record">{{$t('chat.noRecord')}}</div>
     </template>
   </div>
 </template>
