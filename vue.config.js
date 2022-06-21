@@ -3,13 +3,7 @@ module.exports = defineConfig({
   transpileDependencies: [
     'vuetify'
   ],
-  pluginOptions: {
-    'style-resources-loader': {
-      preProcessor: 'scss',
-      patterns: [
-        './src/assets/style/variable.scss'
-      ]
-    },
+  pluginOptions: {  
     i18n: {
       locale: 'tw',
       fallbackLocale: 'tw',
