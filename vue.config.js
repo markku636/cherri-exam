@@ -1,18 +1,15 @@
-const { defineConfig } = require('@vue/cli-service')
+const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
-  transpileDependencies: [
-    'vuetify'
-  ],
-  pluginOptions: {  
+  transpileDependencies: ["vuetify"],
+  publicPath: process.env.NODE_ENV === "production" ? "/cherri-exam/" : "/",
+  pluginOptions: {
     i18n: {
-      locale: 'tw',
-      fallbackLocale: 'tw',
-      localeDir: 'langs',
+      locale: "tw",
+      fallbackLocale: "tw",
+      localeDir: "langs",
       enableInSFC: true,
       includeLocales: false,
-      enableBridge: true
-    }
-  }
-})
-
-
+      enableBridge: true,
+    },
+  },
+});
