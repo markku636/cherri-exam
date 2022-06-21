@@ -9,15 +9,15 @@
     "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/langs/**/*.json\""
   },
   "dependencies": {
-    "core-js": "^3.8.3",
-    "dayjs": "^1.11.3",
-    "style-resources-loader": "^1.5.0",
-    "vue": "^2.6.14",
-    "vue-i18n": "^8.26.3",
-    "vue-i18n-bridge": "^9.2.0-beta.10",
-    "vue-router": "^3.5.4",
-    "vuetify": "^2.6.6",
-    "vuex": "^3.6.2"
+    "core-js": "3.8.3",
+    "dayjs": "1.11.3",
+    "style-resources-loader": "1.5.0",
+    "vue": "2.6.14",
+    "vue-i18n": "8.26.3",
+    "vue-i18n-bridge": "9.2.0-beta.10",
+    "vue-router": "3.5.4",
+    "vuetify": "2.6.6",
+    "vuex": "3.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -29,7 +29,7 @@
     "deepmerge": "^4.2.2",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
-    "mark.js": "^8.11.1",
+    "mark.js": "8.11.1",
     "sass": "^1.32.13",
     "sass-loader": "^13.0.0",
     "vue-cli-plugin-i18n": "~2.3.1",
