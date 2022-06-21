@@ -4,7 +4,7 @@
       <span class="chat-title">Cherri Chat</span>
     </div>
 
-    <v-spacer></v-spacer>        
+    <v-spacer></v-spacer>
     <v-btn
       rounded
       :outlined="lang.value != $i18n.locale"
@@ -19,9 +19,7 @@
     </v-btn>
     <v-divider vertical class="mx-2"></v-divider>
 
-    <v-btn      
-      text
-    >
+    <v-btn text>
       <div class="user-img m-r-8"></div>
       <span class="f-24 f-bold">{{ loginInfo.name }}</span>
     </v-btn>
@@ -55,3 +53,28 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.chat-title-bar {
+  .chat-title {
+    color: #fff;
+    font-size: 24px;
+  }
+
+  .lang-btn {
+    font-size: 20px;
+
+    &.active .v-btn__content {
+      color: #4a90e2;
+    }
+  }
+
+  .user-img {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    background-color: #ffffff;
+  }
+}
+</style>

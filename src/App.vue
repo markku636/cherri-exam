@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="app-container">
     <TopBar />
     <FriendList />
     <v-main>
@@ -18,26 +18,9 @@ export default {
 </script>
 
 <style lang="scss">
-.user-img {
-  width: 48px;
-  height: 48px;
-  border: 1px solid #ffffff;
-  border-radius: 50%;
-  background-color: #ffffff;
-}
-.chat-title-bar {
-  .chat-title {
-    color: #fff;
-    font-size: 24px;
-  }
-}
-
-
-.lang-btn {
-  font-size: 20px;
-
-  &.active .v-btn__content {
-    color: #4a90e2;
+.app-container {
+  .v-btn {
+    text-transform: none;
   }
 }
 </style>
