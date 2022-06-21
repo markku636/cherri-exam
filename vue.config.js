@@ -1,7 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
   transpileDependencies: ["vuetify"],
-  publicPath: "/",
+  publicPath: "/cherri-exam/",
   pluginOptions: {
     i18n: {
       locale: "tw",
