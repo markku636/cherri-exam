@@ -15,7 +15,7 @@
           </div>
 
           <div
-            class="friend-card p-t-12 p-b-12 p-l-12 p-r-12"
+            class="friend-card p-t-12 p-b-12 p-l-12 p-r-12 cursor"
             v-for="member in memberList"
             :key="member.id"
             @click="clickNickName(member)"

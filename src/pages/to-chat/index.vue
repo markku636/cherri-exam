@@ -16,7 +16,7 @@
           <img
             :src="require('@/assets/images/ic_search.png')"
             @click="activeBtn = SearchButtonType.Search"
-            class="w-44 h-44"
+            class="w-44 h-44 cursor"
           />
         </div>
 
@@ -38,7 +38,7 @@
               v-on="on"
               @click="activeBtn = SearchButtonType.Memo"
             >
-              <img src="@/assets/images/ic_note.png" class="w-48 h-48" />
+              <img src="@/assets/images/ic_note.png" class="w-44 h-44 cursor" />
             </div>
           </template>
 
@@ -107,7 +107,7 @@
           v-on:keyup.enter="sendMessage"
         ></v-text-field>
       </div>
-      <div class="w-48 m-l-40 m-r-20 send-message-btn" @click="sendMessage">
+      <div class="w-48 m-l-40 m-r-20 send-message-btn cursor" @click="sendMessage">
         <img src="@/assets/images/ic_sent.png" class="w-48" />
       </div>
     </div>
