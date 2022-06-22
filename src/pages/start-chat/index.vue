@@ -1,11 +1,11 @@
 <template>
   <div class="start-chat-container">
-    
-      <div class="start-chat">
+    <div class="start-chat">
+      
         <img :src="require('@/assets/images/img_default.png')" />
         <div class="start-text">開始使用Cherri Chat!</div>
-      </div>
-    
+      
+    </div>
   </div>
 </template>
 
@@ -20,23 +20,23 @@ export default {
   width: 100%;
   width: 100%;
   .start-chat {    
-    height: 95vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
     flex-direction: column;
-  }
+    padding-top: 240px;
 
-  img {
-    width: 300px;
-    height: auto;
-  }
+    img {
+      width: 300px;
+      height: auto;
+    }
 
-  .start-text {
-    margin-top: 12px;
-    color: #478ee2;
-    font-size: 48px;
+    .start-text {
+      margin-top: 12px;
+      color: #478ee2;
+      font-size: 48px;
+    }
   }
 }
 </style>
